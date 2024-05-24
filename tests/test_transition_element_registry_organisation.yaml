@@ -1,0 +1,5 @@
+name: 'Переход по первому элементу реестра организаций'
+cmd: 'pytest --alluredir={allure_reports_path} tests/test_transition_element_registry_organisation.py'
+steps:
+  - 'Открытие страницы реестра организаций'
+  - 'Проверка перехода по первому элементу реестра организаций'

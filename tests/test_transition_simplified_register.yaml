@@ -1,0 +1,6 @@
+name: 'Переход к упрощенной регистрации'
+cmd: 'pytest --alluredir={allure_reports_path} tests/test_transition_simplified_register.py'
+steps:
+  - 'Открытие главной страницы'
+  - 'Открытие окна регистрации'
+  - 'Проверка перехода к упрощенной регистрации'

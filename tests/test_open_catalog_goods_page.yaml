@@ -1,0 +1,4 @@
+name: 'Открытие страницы каталога '
+cmd: 'pytest --alluredir={allure_reports_path} tests/test_open_catalog_goods_page.py'
+steps:
+  - 'Открытие страницы каталога '

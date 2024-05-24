@@ -1,0 +1,4 @@
+name: 'Проверка ответа сервиса состояния ПП'
+cmd: 'pytest --alluredir={allure_reports_path} tests/test_check_pp_service.py'
+steps:
+  - 'Проверка ответа сервиса состояния ПП'
