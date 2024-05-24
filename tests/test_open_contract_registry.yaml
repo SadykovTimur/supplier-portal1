@@ -1,0 +1,4 @@
+name: 'Открытие страницы реестра контрактов'
+cmd: 'pytest --alluredir={allure_reports_path} tests/test_open_contract_registry.py'
+steps:
+  - 'Открытие страницы реестра контрактов'
