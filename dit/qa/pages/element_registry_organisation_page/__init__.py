@@ -14,7 +14,7 @@ __all__ = ['ElementRegistryOrganisationPage']
 class ElementRegistryOrganisationPage(Page):
     menu = Menu(css='[class*="TopMenuWrapper"]')
     footer = Component(css='[class*="Footer"]')
-    title = Text(xpath='//div[@class="column"]/child::div/h2')
+    title = Text(xpath='//div[@class="column"]/div/h2')
     company = Component(css='[class*="CompanyDetails"]')
 
     def wait_for_loading(self, name: str) -> None:
