@@ -183,7 +183,6 @@ def open_start_page_after_auth(app: Application) -> None:
     with allure.step('Opening Start after page'):
         try:
             page = StartPage(app)
-            page.modal.click()
 
             page.wait_for_loading_after_auth()
 

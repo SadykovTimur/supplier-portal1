@@ -16,7 +16,6 @@ class StartPage(Page):
     menu = Menu(css='[class*="TopMenuWrapper"]')
     footer = Component(css='[class*="Footer"]')
     portal = Text(css='[class*="JumbotronHeader"]')
-    modal = Button(xpath='//span[text()="Пройти опрос позже"] ')
 
     def wait_for_loading(self) -> None:
         def condition() -> bool:
