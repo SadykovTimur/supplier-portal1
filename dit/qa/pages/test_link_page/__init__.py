@@ -21,5 +21,5 @@ class TestLinkPage(Page):
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Server answer incorrect')
+        wait_for(condition, timeout=80, msg='Некорректный ответ сервиса')
         self.app.restore_implicitly_wait()

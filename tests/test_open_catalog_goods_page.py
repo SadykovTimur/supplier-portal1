@@ -12,7 +12,7 @@ from tests.steps import open_catalog_goods_page
 @allure.label('component', 'DIT')
 @allure.epic('SUPPLIER-PORTAL')
 @allure.story('Стартовая страница')
-@allure.title('Открытие страницы каталога ')
+@allure.title('Открытие страницы каталога')
 @allure.severity(allure.severity_level.BLOCKER)
 @pytest.mark.parametrize('browser', CLIENT_BROWSERS)
 @pytest.mark.parametrize('device_type', CLIENT_DEVICE_TYPE)

@@ -6,16 +6,15 @@ from coms.qa.frontend.pages.component import Component
 from coms.qa.frontend.pages.component.text import Text
 from selenium.common.exceptions import NoSuchElementException
 
-from dit.qa.pages.components.footer import Footer
 from dit.qa.pages.components.menu import Menu
 
 __all__ = ['ElementRegistryOrganisationPage']
 
 
 class ElementRegistryOrganisationPage(Page):
-    menu = Menu(css='[class*="TopMenuStyles"]')
-    footer = Footer(css='[class*="Footer"]')
-    title = Text(xpath='//div[@class="column"]/child::h2')
+    menu = Menu(css='[class*="TopMenuWrapper"]')
+    footer = Component(css='[class*="Footer"]')
+    title = Text(xpath='//div[@class="column"]/child::div/h2')
     company = Component(css='[class*="CompanyDetails"]')
 
     def wait_for_loading(self, name: str) -> None:
@@ -26,12 +25,12 @@ class ElementRegistryOrganisationPage(Page):
                 assert self.title == name
                 assert self.company.visible
 
-                return self.footer.is_visible
+                return self.footer.visible
 
             except NoSuchElementException:
 
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Page was not loaded')
+        wait_for(condition, timeout=50, msg='Данные о контрактах не загружены')
         self.app.restore_implicitly_wait()

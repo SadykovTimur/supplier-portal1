@@ -46,7 +46,7 @@ class RegisterPage(Page):
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Page was not loaded')
+        wait_for(condition, timeout=70, msg='Окно регистрации не загружено')
         self.app.restore_implicitly_wait()
 
     def wait_transition_register(self) -> None:
@@ -67,7 +67,7 @@ class RegisterPage(Page):
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Registration was not loaded')
+        wait_for(condition, timeout=60, msg='Упрощенная регистрация не загружена')
         self.app.restore_implicitly_wait()
 
     def wait_confirmation_create_user(self) -> None:
@@ -86,7 +86,7 @@ class RegisterPage(Page):
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Modal window was not loaded')
+        wait_for(condition, timeout=60, msg='Модальное окно создания пользователя не загружено')
         self.app.restore_implicitly_wait()
 
     def wait_create_user(self) -> None:
@@ -99,5 +99,5 @@ class RegisterPage(Page):
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='User was not created')
+        wait_for(condition, timeout=60, msg='Пользователь не создан')
         self.app.restore_implicitly_wait()

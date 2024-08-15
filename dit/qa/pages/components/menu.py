@@ -7,12 +7,8 @@ __all__ = ['Menu']
 class MenuWrapper(ComponentWrapper):
     logo = Component(css='[class*="FullLogo"]')
     main = Component(css='[class*="MainMenuStyles"]')
-    appeal = Component(xpath="//div[text()='Оставить обращение']")
-    support = Component(xpath="//div[text()='Центр поддержки']")
-    city = Component(xpath="//div[text()='г Москва']")
-    city_kirov = Component(xpath="//div[text()='обл Кировская']")
+    registration = Component(css='[class*="PrimaryButton"]')
     submit = Button(xpath="//button[text()='Войти']")
-    register = Button(xpath="//span[text()='Зарегистрироваться']")
     user_name = Component(xpath="//div[text()='pp_monitoring']")
     support_modal = Component(css='[class*="SupportModal"]')
     knowledge = Component(css='[href*="knowledgebase"]')
@@ -21,9 +17,9 @@ class MenuWrapper(ComponentWrapper):
     def is_visible(self) -> bool:
         assert self.logo.visible
         assert self.main.visible
-        assert self.appeal.visible
+        assert self.registration.visible
 
-        return self.support.visible
+        return self.submit.visible
 
 
 class Menu(Component):

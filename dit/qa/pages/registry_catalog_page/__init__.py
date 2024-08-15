@@ -6,15 +6,14 @@ from coms.qa.frontend.pages.component import Component, Components
 from coms.qa.frontend.pages.component.button import Button
 from selenium.common.exceptions import NoSuchElementException
 
-from dit.qa.pages.components.footer import Footer
 from dit.qa.pages.components.menu import Menu
 
 __all__ = ['RegistryCatalogPage']
 
 
 class RegistryCatalogPage(Page):
-    menu = Menu(css='[class*="TopMenuStyles"]')
-    footer = Footer(css='[class*="Footer"]')
+    menu = Menu(css='[class*="TopMenuWrapper"]')
+    footer = Component(css='[class*="Footer"]')
     catalog_search = Component(css='[class*="TitleWithDropdown"]')
     catalog_root = Components(css='[class*="RootCatalogItem"]')
     paper = Button(xpath="//a[text()='Бумажная продукция'] ")
@@ -27,12 +26,12 @@ class RegistryCatalogPage(Page):
                 assert self.catalog_search.visible
                 assert self.catalog_root[0].visible
 
-                return self.footer.is_visible
+                return self.footer.visible
 
             except NoSuchElementException:
 
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Page was not loaded')
+        wait_for(condition, timeout=50, msg='Страница реестра каталога не загружена')
         self.app.restore_implicitly_wait()

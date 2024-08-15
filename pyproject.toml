@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "dit-qa-supplier-portal"
-version = "0.1.0"
+version = "0.1.1"
 description = "Autotests for SUPPLIER-PORTAL"
-authors = ["Seregin Andrey <a.seregin@coms.ru>", "Sadykov Timur <t.sadykov@coms.ru>"]
+authors = ["Seregin Andrey <a.seregin@coms.ru>", "Sadykov Timur <t.sadykov@coms.ru>", "Susharin Ilya <i.susharin@coms.ru>"]
 
 packages = [
     { include = "dit" }

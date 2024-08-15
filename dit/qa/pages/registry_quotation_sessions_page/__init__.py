@@ -3,19 +3,19 @@ from __future__ import annotations
 from coms.qa.core.helpers import wait_for
 from coms.qa.frontend.pages import Page
 from coms.qa.frontend.pages.component import Component, Components
+from coms.qa.frontend.pages.component.text import Text
 from selenium.common.exceptions import NoSuchElementException
 
-from dit.qa.pages.components.footer import Footer
 from dit.qa.pages.components.menu import Menu
 
 __all__ = ['RegistryQuotationSessionsPage']
 
 
 class RegistryQuotationSessionsPage(Page):
-    menu = Menu(css='[class*="TopMenuStyles"]')
-    footer = Footer(css='[class*="Footer"]')
-    title = Component(xpath="//h1[text()='Единый реестр закупок']")
-    container = Component(css='[class*="fresnel-container"] ')
+    menu = Menu(css='[class*="TopMenuWrapper"]')
+    footer = Component(css='[class*="Footer"]')
+    title = Text(tag='h1')
+    container = Component(css='[class*="fresnel-container"]')
     card_list = Components(css='[class*="PublicList"] [class*="InfoName"]')
     quotation_session = Component(xpath="//span[text()='Котировочные сессии']")
 
@@ -33,17 +33,17 @@ class RegistryQuotationSessionsPage(Page):
             try:
                 assert self.menu.is_visible
 
-                assert self.title.visible
+                assert self.title == 'Единый реестр закупок'
                 assert self.container.visible
                 assert self.card_list[0].visible
                 assert self.quotation_session.visible
 
-                return self.footer.is_visible
+                return self.footer.visible
 
             except NoSuchElementException:
 
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Page was not loaded')
+        wait_for(condition, timeout=50, msg='Страница реестра котировочных сессий не загружена')
         self.app.restore_implicitly_wait()

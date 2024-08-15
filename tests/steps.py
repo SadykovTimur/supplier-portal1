@@ -63,13 +63,13 @@ def open_start_page(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'start_page_error')
 
-            raise TimeoutError('Start page was not loaded') from e
+            raise e
 
 
 def open_register_page(app: Application) -> None:
     with allure.step('Opening Register page'):
         try:
-            StartPage(app).menu.register.click()
+            StartPage(app).menu.registration.click()
 
             RegisterPage(app).wait_for_loading()
 
@@ -77,7 +77,7 @@ def open_register_page(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'register_page_error')
 
-            raise TimeoutError('Register page was not loaded') from e
+            raise e
 
 
 def open_simplified_register_page(app: Application) -> None:
@@ -92,7 +92,7 @@ def open_simplified_register_page(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'simplified_register_page_error')
 
-            raise TimeoutError('Simplified register page was not loaded') from e
+            raise e
 
 
 def open_auth_page(app: Application) -> None:
@@ -106,7 +106,7 @@ def open_auth_page(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'auth_page_error')
 
-            raise TimeoutError('Auth page was not loaded') from e
+            raise e
 
 
 def sign_in(app: Application, login: str, password: str) -> None:
@@ -121,7 +121,7 @@ def sign_in(app: Application, login: str, password: str) -> None:
         except Exception as e:
             screenshot_attach(app, 'auth_data_error')
 
-            raise NoSuchElementException('Entering data exception') from e
+            raise NoSuchElementException('Ошибка ввода данных') from e
 
         auth_form.submit.click()
 
@@ -145,7 +145,7 @@ def fill_simplified_register(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'register_data_error')
 
-            raise NoSuchElementException('Entering data exception') from e
+            raise NoSuchElementException('Ошибка ввода данных') from e
 
         auth_register.action_bar.continue_btn.click()
 
@@ -159,7 +159,7 @@ def open_confirmation_create_user(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'confirmation_create_user_modal_error')
 
-            raise TimeoutError('Confirmation create user modal was not loaded') from e
+            raise e
 
 
 def open_create_user(app: Application) -> None:
@@ -176,19 +176,22 @@ def open_create_user(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'create_user_page_error')
 
-            raise TimeoutError('Create user page was not loaded') from e
+            raise e
 
 
 def open_start_page_after_auth(app: Application) -> None:
     with allure.step('Opening Start after page'):
         try:
-            StartPage(app).wait_for_loading_after_auth()
+            page = StartPage(app)
+            page.modal.click()
+
+            page.wait_for_loading_after_auth()
 
             screenshot_attach(app, 'start_after_page')
         except Exception as e:
             screenshot_attach(app, 'start_after_page_error')
 
-            raise TimeoutError('Start after page was not loaded') from e
+            raise e
 
 
 def open_registry_catalog(app: Application) -> None:
@@ -204,7 +207,7 @@ def open_registry_catalog(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'registry_catalog_page_error')
 
-            raise TimeoutError('Registry catalog page was not loaded') from e
+            raise e
 
 
 def transition_element_registry_catalog(app: Application) -> None:
@@ -218,7 +221,7 @@ def transition_element_registry_catalog(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'element_registry_page_error')
 
-            raise TimeoutError('Element registry was not loaded') from e
+            raise e
 
 
 def transition_element_product_list(app: Application) -> None:
@@ -232,7 +235,7 @@ def transition_element_product_list(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'element_product_page_error')
 
-            raise TimeoutError('Element product was not loaded') from e
+            raise e
 
 
 def open_display_id_cte(app: Application) -> None:
@@ -244,7 +247,7 @@ def open_display_id_cte(app: Application) -> None:
         except Exception as e:
             screenshot_attach(app, 'display_id_cte_page_error')
 
-            raise TimeoutError('Display id cte was not loaded') from e
+            raise e
 
 
 def open_catalog_goods_page(app: Application) -> None:
@@ -253,13 +256,14 @@ def open_catalog_goods_page(app: Application) -> None:
             page = CatalogGoodsPage(app)
             page.base_url = 'https://zakupki.mos.ru/catalog/goods'
             page.open()
+
             page.wait_for_loading()
 
             screenshot_attach(app, 'catalog_page')
         except Exception as e:
             screenshot_attach(app, 'catalog_error')
 
-            raise TimeoutError('Catalog page was not loaded') from e
+            raise e
 
 
 def open_registry_quotation_sessions_page(app: Application) -> None:
@@ -268,39 +272,43 @@ def open_registry_quotation_sessions_page(app: Application) -> None:
             page = RegistryQuotationSessionsPage(app)
             page.base_url = 'https://zakupki.mos.ru/purchase/list?state=%7B%22currentTab%22%3A3%7D'
             page.open()
+
             page.wait_for_loading()
 
             screenshot_attach(app, 'registry_quotation_sessions_page')
         except Exception as e:
             screenshot_attach(app, 'registry_quotation_sessions_error')
 
-            raise TimeoutError('Registry quotation sessions page was not loaded') from e
+            raise e
 
 
 def transition_element_registry_quotation_sessions(app: Application) -> None:
     with allure.step('Transition Element registry quotation sessions page'):
         try:
             name = RegistryQuotationSessionsPage(app).choose_item()
+            app.driver.switch_to.window(app.driver.window_handles[1])
+
             ElementRegistryQuotationSessionsPage(app).wait_for_loading(name)
 
             screenshot_attach(app, 'element_registry_quotation_sessions_page')
         except Exception as e:
             screenshot_attach(app, 'element_registry_quotation_sessions_page_error')
 
-            raise TimeoutError('Element registry quotation sessions page was not loaded') from e
+            raise e
 
 
 def check_text_status_block_quotation_sessions(app: Application) -> None:
     with allure.step('Checking Status block quotation sessions page'):
         try:
-            status = ElementRegistryQuotationSessionsPage(app).status
-            assert status in ['АКТИВНАЯ', 'СНЯТА С ПУБЛИКАЦИИ', 'ПРОВЕДЕНА', 'НЕ СОСТОЯЛАСЬ']
+            status = ElementRegistryQuotationSessionsPage(app)
+
+            status.wait_for_loading_status()
 
             screenshot_attach(app, 'status_block_quotation_sessions_page')
         except Exception as e:
             screenshot_attach(app, 'status_block_quotation_sessions_page_error')
 
-            raise AssertionError(f'Undefined status {status}') from e
+            raise e
 
 
 def open_need_registry(app: Application) -> None:
@@ -309,39 +317,42 @@ def open_need_registry(app: Application) -> None:
             page = NeedRegistryPage(app)
             page.base_url = 'https://zakupki.mos.ru/purchase/list?state=%7B%22currentTab%22%3A4%7D'
             page.open()
+
             page.wait_for_loading()
 
             screenshot_attach(app, 'need_registry_page')
         except Exception as e:
             screenshot_attach(app, 'need_registry_error')
 
-            raise TimeoutError('Need registry page was not loaded') from e
+            raise e
 
 
 def transition_element_need_registry(app: Application) -> None:
     with allure.step('Transition Element need registry page'):
         try:
             name = NeedRegistryPage(app).choose_item()
+
             ElementNeedRegistryPage(app).wait_for_loading(name)
 
             screenshot_attach(app, 'element_need_registry_page')
         except Exception as e:
             screenshot_attach(app, 'element_need_registry_page_error')
 
-            raise TimeoutError('Element need registry page was not loaded') from e
+            raise e
 
 
 def check_text_status_block_need_procurement(app: Application) -> None:
     with allure.step('Checking Status block need procurement page'):
         try:
-            status = ElementNeedRegistryPage(app).status
-            assert status in ['ПРИЕМ ПРЕДЛОЖЕНИЙ ЗАВЕРШЕН', 'ПРИЕМ ПРЕДЛОЖЕНИЙ', 'ОТМЕНЕНА']
+            status = ElementNeedRegistryPage(app)
+
+            status.wait_for_loading_status_block()
 
             screenshot_attach(app, 'status_block_need_procurement_page')
         except Exception as e:
             screenshot_attach(app, 'status_block_need_procurement_page_error')
 
-            raise AssertionError(f'Undefined status {status}') from e
+            raise e
 
 
 def open_contract_registry(app: Application) -> None:
@@ -350,50 +361,42 @@ def open_contract_registry(app: Application) -> None:
             page = ContractRegistryPage(app)
             page.base_url = 'https://zakupki.mos.ru/contract/list'
             page.open()
+
             page.wait_for_loading()
 
             screenshot_attach(app, 'contract_registry_page')
         except Exception as e:
             screenshot_attach(app, 'contract_registry_error')
 
-            raise TimeoutError('Contract registry page was not loaded') from e
+            raise e
 
 
 def transition_element_contract_registry(app: Application) -> None:
     with allure.step('Transition Element contact registry page'):
         try:
             name = ContractRegistryPage(app).choose_item()
+
             ElementContractRegistryPage(app).wait_for_loading(name)
 
             screenshot_attach(app, 'element_contact_registry_page')
         except Exception as e:
             screenshot_attach(app, 'element_contact_registry_page_error')
 
-            raise TimeoutError('Element registry contact was not loaded') from e
+            raise e
 
 
 def check_text_status_block_contract_registry(app: Application) -> None:
     with allure.step('Checking Status block contract registry page'):
         try:
-            status = ElementContractRegistryPage(app).status
-            assert status in [
-                'ИСПОЛНЕН',
-                'ВВОД СВЕДЕНИЙ',
-                'В АРХИВЕ',
-                'РЕАДКТИРОВАНИЕ',
-                'ЗАКЛЮЧЕН',
-                'РАСТОРГНУТ',
-                'ОТКАЗ ОТ ЗАКЛЮЧЕНИЯ',
-                'ЗАКЛЮЧЕНИЕ',
-                'НАПРАВЛЕН ПРОТОКОЛ РАЗНОГЛАСИЙ',
-                'НАПРАВЛЕН ПОСТАВЩИКУ',
-            ]
+            status = ElementContractRegistryPage(app)
+
+            status.wait_for_loading_status()
 
             screenshot_attach(app, 'status_block_contract_registry_page')
         except Exception as e:
             screenshot_attach(app, 'status_block_contract_registry_page_error')
 
-            raise AssertionError(f'Undefined status {status}') from e
+            raise e
 
 
 def open_registry_organisation(app: Application) -> None:
@@ -402,26 +405,28 @@ def open_registry_organisation(app: Application) -> None:
             page = RegistryOrganisationPage(app)
             page.base_url = 'https://zakupki.mos.ru/organization/list'
             page.open()
+
             page.wait_for_loading()
 
             screenshot_attach(app, 'registry_organisation_page')
         except Exception as e:
             screenshot_attach(app, 'registry_organisation_page_error')
 
-            raise TimeoutError('Registry organisation page was not loaded') from e
+            raise e
 
 
 def transition_element_registry_organisation(app: Application) -> None:
     with allure.step('Transition Element registry organisation page'):
         try:
             name = RegistryOrganisationPage(app).choose_item()
+
             ElementRegistryOrganisationPage(app).wait_for_loading(name)
 
             screenshot_attach(app, 'element_registry_organisation_page')
         except Exception as e:
             screenshot_attach(app, 'element_registry_organisation_page_error')
 
-            raise TimeoutError('Element registry organisation was not loaded') from e
+            raise e
 
 
 def check_server_answer(app: Application, url: str) -> None:
@@ -430,10 +435,11 @@ def check_server_answer(app: Application, url: str) -> None:
             page = TestLinkPage(app)
             page.base_url = url
             page.open()
+
             page.wait_for_loading()
 
             screenshot_attach(app, 'server_answer')
         except Exception as e:
             screenshot_attach(app, 'server_answer_error')
 
-            raise TimeoutError('Server answer incorrect') from e
+            raise e

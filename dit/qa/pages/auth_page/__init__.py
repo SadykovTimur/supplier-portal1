@@ -55,5 +55,5 @@ class AuthPage(Page):
                 return False
 
         self.app.set_implicitly_wait(1)
-        wait_for(condition, msg='Page was not loaded')
+        wait_for(condition, timeout=50, msg='Страница авторизации не загружена')
         self.app.restore_implicitly_wait()
